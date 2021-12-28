@@ -11,5 +11,5 @@ module.exports = (app) => {
     /**
      * route definition
      */
-    app.get("/test-route", ValidationManger.validateUserLogin, new TestModule().testRoute);
+    app.get("/test-route", new TestModule().testRoute);
 };

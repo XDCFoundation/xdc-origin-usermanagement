@@ -8,10 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      userId: {
         type: Sequelize.STRING
       },
-      email: {
+      xdcPayAddress: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {
