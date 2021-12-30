@@ -5,14 +5,11 @@ export default class Manger {
     // API business logic
     login = async (requestData) => {
         try{
-            if(!requestData || !requestData.xdcPayAddress){
-                throw apiFailureMessage.INVALID_PARAMS
-            }
-            let newUser = {
+            const newUser = {
                     userId: requestData.xdcPayAddress,
                     xdcPayAddress: requestData.xdcPayAddress,
                 }
-            let userDetails = await user.findAll({
+            const userDetails = await user.findAll({
                 where: {
                     "xdcPayAddress": requestData.xdcPayAddress
                 }
@@ -28,8 +25,8 @@ export default class Manger {
                         "xdcPayAddress": response.xdcPayAddress
                     }
                 })
-            }else{
-                throw "User Already Exists"
+            }else if(userDetails.length !== 0){
+                return userDetails
             }
         }
         catch (err) {
