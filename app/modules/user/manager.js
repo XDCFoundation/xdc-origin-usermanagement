@@ -25,7 +25,7 @@ export default class Manger {
                         "xdcPayAddress": response.xdcPayAddress
                     }
                 })
-            }else if(userDetails.length !== 0){
+            }else{
                 return userDetails
             }
         }
