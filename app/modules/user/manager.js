@@ -1,33 +1,39 @@
 import { apiSuccessMessage, apiFailureMessage, httpConstants } from '../../common/constants'
 const db = require('../../../database/models/index');
-const user = db.User;
+const client = db.Client;
 export default class Manger {
     // API business logic
     login = async (requestData) => {
         try{
-            const newUser = {
-                    userId: requestData.xdcPayAddress,
-                    xdcPayAddress: requestData.xdcPayAddress,
-                }
-            const userDetails = await user.findAll({
-                where: {
-                    "xdcPayAddress": requestData.xdcPayAddress
-                }
+            // const newUser = {
+            //         userId: requestData.xdcPayAddress,
+            //         xdcPayAddress: requestData.xdcPayAddress,
+            //     }
+            // const userDetails = await user.findAll({
+            //     where: {
+            //         "xdcPayAddress": requestData.xdcPayAddress
+            //     }
+            // });
+            // if(userDetails.length == 0){
+            //     const response = await user.create(newUser);
+            //     await user.update(
+            //         { userId: response.id },
+            //         { where: { id: response.id } },
+            //       )
+            //     return await user.findAll({
+            //         where: {
+            //             "xdcPayAddress": response.xdcPayAddress
+            //         }
+            //     })
+            // }else{
+            //     return userDetails
+            // }
+            return client.create({
+                "walletAddress": "abc",
+                "sessionToken": "dbhc",
+                "expiryTime": 2
             });
-            if(userDetails.length == 0){
-                const response = await user.create(newUser);
-                await user.update(
-                    { userId: response.id },
-                    { where: { id: response.id } },
-                  )
-                return await user.findAll({
-                    where: {
-                        "xdcPayAddress": response.xdcPayAddress
-                    }
-                })
-            }else{
-                return userDetails
-            }
+            // return await userData.findAll();
         }
         catch (err) {
             throw new Error(err)

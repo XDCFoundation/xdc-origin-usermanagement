@@ -13,5 +13,5 @@ module.exports = (app) => {
      * route definition
      */
     app.get("/test-route", new TestModule().testRoute);
-    app.post(apiEndpoints.LOGIN, ValidationManger.validateUserLogin, new User().login)
+    app.get(apiEndpoints.LOGIN, ValidationManger.validateUserLogin, new User().login)
 };
