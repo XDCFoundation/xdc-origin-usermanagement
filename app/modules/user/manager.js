@@ -65,14 +65,15 @@ export default class Manger {
     try {
       const decoded = jwt.verify(token, Config.TOKEN_KEY);
       requestData.user = decoded;
-      const expired = Date.now() >= decoded.exp * 1000
 
-      if (expired===true){
+    } catch (err) {
+      if(err.expiredAt){
         return "Token Expired"
       }
 
-    } catch (err) {
       return "Invalid Token";
+      
+      
     }
 
     return "Welcome 🙌 ";
