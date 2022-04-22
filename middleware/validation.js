@@ -4,10 +4,20 @@ import * as yup from 'yup'
 module.exports = {
   validateUserLogin: async (req, res, next) => {
     const schema = yup.object().shape({
-      xdcPayAddress: yup.string().min(8).required()
+      walletAddress: yup.string().min(8).required()
+    })
+    await validate(schema, req.body, res, next)
+  },
+
+
+  validateResgistration:async(req , res ,next)=>{
+    const schema = yup.object().shape({
+      walletAddress: yup.string().min(8).required()
     })
     await validate(schema, req.body, res, next)
   }
+
+
 }
 
 const validate = async (schema, reqData, res, next) => {
