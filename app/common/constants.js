@@ -51,7 +51,9 @@ export const httpConstants = {
     SILLY: 'silly',
     FUNCTIONAL: 'functional',
     HTTP_REQUEST: 'http request'
-  }
+  },
+
+  EXPIRESIN:"2h"
 }
 
 export const stringConstants = {

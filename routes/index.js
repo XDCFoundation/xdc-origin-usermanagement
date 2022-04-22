@@ -14,7 +14,6 @@ module.exports = (app) => {
      * route definition
      */
     app.get("/test-route", new TestModule().testRoute);
-    app.post("/login", ValidationManger.validateUserLogin,new User().login)
     app.post("/connect-wallet",ValidationManger.validateResgistration,new User().connectWallet)
-    app.post("/welcome",new User().authentication)
+    app.post("/authentication-verification",new User().authentication)
 };
