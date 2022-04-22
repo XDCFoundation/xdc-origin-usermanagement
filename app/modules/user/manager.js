@@ -1,6 +1,4 @@
 import {
-  apiSuccessMessage,
-  apiFailureMessage,
   httpConstants,
 } from "../../common/constants";
 const db = require("../../../database/models/index");
@@ -11,7 +9,7 @@ import Config from "../../../config";
 export default class Manger {
   connectWallet = async (requestData) => {
     try {
-      const { expiryTime, walletAddress, sessionToken } = requestData;
+      const {  walletAddress} = requestData;
 
       const oldUser = await client.findAll({
         where: { walletAddress: requestData.walletAddress },
