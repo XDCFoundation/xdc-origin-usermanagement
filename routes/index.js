@@ -14,5 +14,5 @@ module.exports = (app) => {
      */
     app.get("/test-route", new TestModule().testRoute);
     app.post("/connect-wallet",ValidationManger.validateResgistration,new User().connectWallet)
-    app.post("/authentication-verification",new User().authentication)
+    app.post("/authentication-verification",ValidationManger.validateAuthentication,new User().authentication)
 };
