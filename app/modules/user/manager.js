@@ -84,7 +84,7 @@ export default class Manger {
       
     }
     
-    return "Welcome 🙌 ";
+    return "Welcome";
   };
 }
 
