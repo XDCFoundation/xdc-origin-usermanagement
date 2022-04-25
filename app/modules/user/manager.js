@@ -26,13 +26,15 @@ export default class Manger {
 
       const token = jwt.sign(
         { user_id: user.id, walletAddress },
-        Config.TOKEN_KEY,
+        Config.JWT_TOKEN_KEY_1,
         {
           expiresIn: httpConstants.EXPIRESIN,
         }
       );
 
-      await client.update({ sessionToken: token }, { where: { id: user.id } });
+      const decoded = jwt.verify(token, Config.JWT_TOKEN_KEY_1);
+
+      await client.update({ sessionToken: token ,expiryTime:decoded.exp}, { where: { id: user.id } });
       let newData = await client.findAll({ where: { id: user.id } });
 
       return { newData };
@@ -45,21 +47,17 @@ export default class Manger {
   authentication = async (requestData) => {
 
     const token =
-      requestData.body.token ||
-      requestData.query.token ||
-      requestData.headers["x-access-token"];
+      requestData.body.token
     
     if (!token) {
-      
+
       return "A token is required for authentication";
     }
     const address =
-      requestData.body.walletAddress ||
-      requestData.query.walletAddress ||
-      requestData.headers["wallet-address"];
+      requestData.body.walletAddress
 
     if (!address) {
-      return "A token is required for authentication...";
+      return "A wallet address is required for authentication";
     }
 
     const checkUser = await client.findAll({
@@ -71,8 +69,15 @@ export default class Manger {
     }
 
     try {
-      const decoded = jwt.verify(token, Config.TOKEN_KEY);
+      const decoded = jwt.verify(token, Config.JWT_TOKEN_KEY_1);
       requestData.user = decoded;
+
+      const user = await client.findAll({
+        where: { walletAddress: decoded.walletAddress,id:decoded.user_id,sessionToken:requestData.body.token },
+      });
+      if(user.length===0){
+        return "Invalid User"
+      }
 
     } catch (err) {
       if(err.expiredAt){
@@ -83,29 +88,28 @@ export default class Manger {
       
       
     }
-    
-    return "Welcome";
+    return "User Verified";
   };
 }
 
 const login = async (requestData) => {
-  const { walletAddress } = requestData;
+  
+  const walletAddress = requestData.walletAddress;
   let newData1 = await client.findAll({
     where: { walletAddress: requestData.walletAddress },
   });
-  console.log(newData1.id, "newData1");
 
   if (newData1) {
     const token = jwt.sign(
-      { user_id: newData1.id, walletAddress },
-      Config.TOKEN_KEY,
+      { user_id: newData1[0].id, walletAddress },
+      Config.JWT_TOKEN_KEY_1,
       {
         expiresIn: httpConstants.EXPIRESIN,
       }
     );
-    console.log(token, "token");
+
     await client.update(
-      { sessionToken: token },
+      { sessionToken: token,expiryTime:decoded.exp },
       { where: { walletAddress: requestData.walletAddress } }
     );
     let newData = await client.findAll({
