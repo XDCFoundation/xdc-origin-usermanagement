@@ -43,7 +43,7 @@ export default class Manger {
 
   
   authentication = async (requestData) => {
-    
+
     const token =
       requestData.body.token ||
       requestData.query.token ||
@@ -62,6 +62,14 @@ export default class Manger {
       return "A token is required for authentication...";
     }
 
+    const checkUser = await client.findAll({
+      where: { walletAddress: address },
+    });
+
+    if(checkUser.length===0){
+      return "No user Found"
+    }
+
     try {
       const decoded = jwt.verify(token, Config.TOKEN_KEY);
       requestData.user = decoded;
@@ -75,7 +83,7 @@ export default class Manger {
       
       
     }
-
+    
     return "Welcome 🙌 ";
   };
 }
