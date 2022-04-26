@@ -107,6 +107,7 @@ const login = async (requestData) => {
         expiresIn: httpConstants.EXPIRESIN,
       }
     );
+    const decoded = jwt.verify(token, Config.JWT_TOKEN_KEY_1);
 
     await client.update(
       { sessionToken: token,expiryTime:decoded.exp },
