@@ -51,7 +51,9 @@ export const httpConstants = {
     SILLY: 'silly',
     FUNCTIONAL: 'functional',
     HTTP_REQUEST: 'http request'
-  }
+  },
+
+  EXPIRESIN:"2h"
 }
 
 export const stringConstants = {
@@ -66,11 +68,13 @@ export const genericConstants = {
 }
 
 export const apiSuccessMessage = {
-  FETCH_SUCCESS: 'Information fetched successfully'
+  FETCH_SUCCESS: 'Information fetched successfully',
+  LOGGED_IN: 'Login Successful'
 }
 
 export const apiEndpoints = {
-  GET_METERS: '/get-meters'
+  GET_METERS: '/get-meters',
+  LOGIN: '/login'
 }
 
 export const apiFailureMessage = {
@@ -81,5 +85,5 @@ export const apiFailureMessage = {
   BAD_REQUEST: 'Bad Request!',
   DEVICE_ID_OR_SESSION_TOKEN_EMPTY: 'Device id or session token can\'t be empty or null',
   SESSION_GENERATION: 'Unable to generate session!',
-  SESSION_EXPIRED: 'Session Expired!'
+  SESSION_EXPIRED: 'Session Expired!',
 }

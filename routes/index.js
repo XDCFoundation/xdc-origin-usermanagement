@@ -3,7 +3,8 @@
  */
 import * as ValidationManger from "../middleware/validation";
 import TestModule from "../app/modules/testModule";
-import {stringConstants} from "../app/common/constants";
+import {apiEndpoints, stringConstants} from "../app/common/constants";
+import User from '../app/modules/user'
 
 module.exports = (app) => {
     app.get('/', (req, res) => res.send(stringConstants.SERVICE_STATUS_HTML));
@@ -11,5 +12,7 @@ module.exports = (app) => {
     /**
      * route definition
      */
-    app.get("/test-route", ValidationManger.validateUserLogin, new TestModule().testRoute);
+    app.get("/test-route", new TestModule().testRoute);
+    app.post("/connect-wallet",ValidationManger.validateResgistration,new User().connectWallet)
+    app.post("/authentication-verification",ValidationManger.validateAuthentication,new User().authentication)
 };
